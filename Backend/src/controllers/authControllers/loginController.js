@@ -1,11 +1,14 @@
-const pool = require("../server");
+const pool = require("../../server");
+
+// joi
+const joi = require("joi");
 
 //Bcrypt
 const bcrypt = require("bcrypt");
 
 const { validateAuth } = require("./validation/validation");
 
-function login(req, res) {
+function loginController(req, res) {
   const { error, value } = validateAuth(req.body);
 
   if (error) {
@@ -40,4 +43,4 @@ function login(req, res) {
   });
 }
 
-module.exports = { login };
+module.exports = { loginController };
