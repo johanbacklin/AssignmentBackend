@@ -14,7 +14,7 @@ const { validateAuth } = require("./validation/validation");
 const registerController = (req, res) => {
   const { error, value } = validateAuth(req.body);
 
-  if (error) {
+  if (validateAuth.error) {
     res.status(400).send(error.details[0].message);
   }
 

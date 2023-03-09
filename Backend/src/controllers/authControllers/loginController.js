@@ -1,46 +1,48 @@
 const pool = require("../../server");
 
-// joi
-const joi = require("joi");
-
 //Bcrypt
 const bcrypt = require("bcrypt");
 
+// Validation
 const { validateAuth } = require("./validation/validation");
 
 function loginController(req, res) {
-  const { error, value } = validateAuth(req.body);
+  try {
+    const { username, password } = req.body;
 
-  if (error) {
-    res.status(400).send(error.details[0].message);
-    return;
-  }
+    const response = validateAuth(req.body);
 
-  const { username } = value;
+    const sql = "SELECT password FROM users WHERE username = ?";
 
-  const sql = "select password from users where username =?";
-
-  pool.execute(sql, [username], (err, result) => {
-    if (err) {
-      console.log(err);
-      res.status(500).send("Error in your server!");
-    } else {
-      if (result.length === 0) {
-        res.status(400).send("User not found!");
+    pool.execute(sql, [username], (err, result) => {
+      if (err) {
+        res.sendStatus(500);
       } else {
-        const hash = result[0].password;
-        const { password } = value;
-
-        const compare = bcrypt.compareSync(password, hash);
-
-        if (compare) {
-          res.status(200).send("User logged in!");
+        if (result.length > 0) {
+          const cryptPassword = result[0].password;
+          const isMatch = bcrypt.compareSync(password, cryptPassword);
+          if (isMatch) {
+            res.cookie("authToken", "hejhej", {
+              maxAge: 10 * 400000,
+              sameSite: "none",
+              secure: true,
+            });
+            res.sendStatus(200);
+          } else {
+            res.sendStatus(404);
+          }
         } else {
-          res.status(400).send("Wrong password!");
+          if (response.error) {
+            res.status(400).send(response.error.details[0].message);
+          } else {
+            res.status(404).send("User or Password is incorrect! Try again!");
+          }
         }
       }
-    }
-  });
+    });
+  } catch (error) {
+    res.send(error);
+  }
 }
 
 module.exports = { loginController };

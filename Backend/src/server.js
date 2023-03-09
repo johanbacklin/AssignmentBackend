@@ -2,6 +2,24 @@
 const express = require("express");
 const app = express();
 
+// Cors
+const cors = require("cors");
+app.use(
+  cors({
+    origin: "http://localhost:3000",
+    credentials: true,
+  })
+);
+
+// Cookie-parser
+const cookieParser = require("cookie-parser");
+app.use(cookieParser());
+
+/* app.use((req, res, next) => {
+  res.setHeader("Access-Control-Allow-Origin", "*");
+  next();
+}); */
+
 //Mysql
 const mysql = require("mysql2");
 
@@ -39,6 +57,6 @@ const { routes } = require("./routes/authRoute/authRoute");
 
 app.use("/auth", routes);
 
-app.listen(3000, () => {
-  console.log("Listening on port 3000!");
+app.listen(3001, () => {
+  console.log("Listening on port 3001!");
 });
