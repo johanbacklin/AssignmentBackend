@@ -17,7 +17,6 @@ function LogInPage() {
     }
 
     const response = await loginFunction(userName, password);
-
     console.log(response);
     setErrorMessage(response);
   }

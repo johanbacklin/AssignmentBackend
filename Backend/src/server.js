@@ -15,11 +15,6 @@ app.use(
 const cookieParser = require("cookie-parser");
 app.use(cookieParser());
 
-/* app.use((req, res, next) => {
-  res.setHeader("Access-Control-Allow-Origin", "*");
-  next();
-}); */
-
 //Mysql
 const mysql = require("mysql2");
 
@@ -39,18 +34,6 @@ const dataBase = {
 // Pool
 const pool = mysql.createPool(dataBase);
 module.exports = pool;
-
-app.get("/", (req, res) => {
-  const sql = "SELECT * from users";
-
-  pool.execute(sql, (err, result) => {
-    if (err) {
-      res.sendStatus(404);
-    } else {
-      res.status(200).send(result);
-    }
-  });
-});
 
 // Routes
 const { routes } = require("./routes/authRoute/authRoute");

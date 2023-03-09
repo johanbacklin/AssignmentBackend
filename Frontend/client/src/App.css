@@ -16,10 +16,6 @@
   color: rgba(240, 34, 34, 0.736);
 }
 
-.success-message {
-  color: rgba(0, 255, 17, 0.683);
-}
-
 .container {
   display: flex;
   width: 750px;
