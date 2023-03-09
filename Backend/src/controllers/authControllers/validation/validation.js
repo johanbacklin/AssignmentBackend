@@ -17,4 +17,25 @@ function validateAuth({ username, password }) {
   return results;
 }
 
-module.exports = { validateAuth };
+// Schema for todo
+
+const schemaTodo = joi.object({
+  title: joi.string().required(),
+  description: joi.string().required(),
+  createdAt: joi.date().required(),
+  updatedAt: joi.date().required(),
+  status: joi.string().required(),
+});
+
+function validateTodo({ title, description, createdAt, updatedAt, status }) {
+  const results = schemaTodo.validate({
+    title,
+    description,
+    createdAt,
+    updatedAt,
+    status,
+  });
+  return results;
+}
+
+module.exports = { validateAuth, validateTodo };
