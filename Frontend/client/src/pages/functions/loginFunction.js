@@ -15,11 +15,12 @@ export const loginFunction = async (userName, password) => {
     const data = await response.status;
 
     if (data === 200) {
-      // Out put in frontend side
-      console.log("Login Success");
-      return data;
+      window.location.href = "/toDoPage";
+      return response;
     }
+    return response;
   } catch (error) {
-    console.log(error);
+    const response = error.response.data;
+    return response;
   }
 };
