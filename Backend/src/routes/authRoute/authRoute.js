@@ -11,12 +11,6 @@ const {
   registerController,
 } = require("../../controllers/authControllers/registerController");
 
-const {
-  todoController,
-} = require("../../controllers/todoControllers/todoController");
-
-routes.get("/todoController", todoController);
-
 routes.post("/loginController", loginController);
 routes.post("/registerController", registerController);
 

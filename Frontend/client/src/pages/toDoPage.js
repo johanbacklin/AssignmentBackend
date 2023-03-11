@@ -1,13 +1,21 @@
-import React from "react";
+import React, { useState } from "react";
 
-function toDoPage() {
+import TodoList from "../components/ToDoList/ToDoList";
+import TodoForm from "../components/toDoForm/toDoForm";
+
+function ToDoPage() {
+  const [todoList, setTodoList] = useState([]);
+
+  function addTodoItem(newTodo) {
+    setTodoList([...todoList, newTodo]);
+  }
+
   return (
-    <div className="container">
-      Todos Page, this is where you will be able to see all your todos and add
-      new ones as well. and see other users todos as well if you are logged in
-      and friends with them.
+    <div className="todopage-container">
+      <TodoList todoList={todoList} />
+      <TodoForm addTodoItem={addTodoItem} />
     </div>
   );
 }
 
-export default toDoPage;
+export default ToDoPage;

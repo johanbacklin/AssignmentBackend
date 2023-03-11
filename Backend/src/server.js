@@ -37,8 +37,13 @@ module.exports = pool;
 
 // Routes
 const { routes } = require("./routes/authRoute/authRoute");
-
 app.use("/auth", routes);
+
+//todo Routes
+
+//Nytt
+const { todoRoutes } = require("./routes/todoRoute/todoRoute");
+app.use("/todo", todoRoutes);
 
 app.listen(3001, () => {
   console.log("Listening on port 3001!");

@@ -23,7 +23,6 @@ function LogInPage() {
 
   return (
     <div className="App">
-      {/* <h1 className="title">Assignment Backend</h1> */}
       <div className="container">
         <div className="container-image-right"></div>
         <div className="container-form-left">
