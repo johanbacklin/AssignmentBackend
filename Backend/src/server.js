@@ -1,6 +1,9 @@
 // Express;
 const express = require("express");
 const app = express();
+// Cookie-parser
+const cookie = require("cookie-parser");
+app.use(cookie());
 
 // Cors
 const cors = require("cors");
@@ -11,21 +14,14 @@ app.use(
   })
 );
 
-// Cookie-parser
-const cookieParser = require("cookie-parser");
-app.use(cookieParser());
-
-//Mysql
-const mysql = require("mysql2");
+/* app.use(cookieParser()); */
 
 // Dotenv
 require("dotenv").config();
+//Mysql
+const mysql = require("mysql2");
 
-const jwt = require("jsonwebtoken");
-
-const secret = process.env.SECRET_TOKEN;
-
-// Json
+// MiddleWares
 app.use(express.json());
 
 // Database
@@ -44,10 +40,11 @@ const { routes } = require("./routes/authRoute/authRoute");
 app.use("/auth", routes);
 
 //todo Routes
-
-//Nytt
+const {
+  verifyToken,
+} = require("./controllers/authControllers/middleware/verifyToken");
 const { todoRoutes } = require("./routes/todoRoute/todoRoute");
-app.use("/todo", todoRoutes);
+app.use("/todo", verifyToken, todoRoutes);
 
 app.listen(3001, () => {
   console.log("Listening on port 3001!");

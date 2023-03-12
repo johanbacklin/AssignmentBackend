@@ -9,14 +9,16 @@ export const loginFunction = async (userName, password) => {
         password: password,
       },
       {
+        responseType: "json",
         withCredentials: true,
+        headers: {
+          "Content-Type": "application/json",
+        },
       }
     );
-    const data = await response.status;
-
-    if (data === 200) {
+    if (response.status === 200) {
       window.location.href = "/toDoPage";
-      return response;
+      return response.data;
     }
     return response;
   } catch (error) {

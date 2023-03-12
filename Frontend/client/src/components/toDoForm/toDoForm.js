@@ -15,9 +15,13 @@ function ToDoForm({ userId }) {
 
   async function logoutButtonHandler() {
     try {
-      const response = await fetch("http://localhost:3001/auth/logout", {
-        method: "POST",
-      });
+      const response = await fetch(
+        "http://localhost:3001/auth/logout",
+        {
+          method: "POST",
+        },
+        { withCredentials: true }
+      );
       if (response.ok) {
         document.cookie =
           "authToken=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
@@ -64,7 +68,13 @@ function ToDoForm({ userId }) {
 
   const getAllTodos = async () => {
     try {
-      const response = await axios.get("http://localhost:3001/todo");
+      const response = await axios.get("http://localhost:3001/todo", {
+        method: "GET",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        withCredentials: true,
+      });
       setTodoList(response.data);
     } catch (error) {
       console.error(error);
@@ -120,7 +130,6 @@ function ToDoForm({ userId }) {
       <button onClick={getAllTodos}>Get All Todos</button>
       <div className="todo__list">
         {todoList.map((val, key) => {
-          console.log(val);
           return (
             <TodoItem
               todo={val}

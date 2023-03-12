@@ -27,13 +27,11 @@ const schemaTodo = joi.object({
   status: joi.string().required(),
 });
 
-function validateTodo({ title, description, createdAt, updatedAt, status }) {
+function validateTodo({ title, description, completed }) {
   const results = schemaTodo.validate({
     title,
     description,
-    createdAt,
-    updatedAt,
-    status,
+    completed,
   });
   return results;
 }

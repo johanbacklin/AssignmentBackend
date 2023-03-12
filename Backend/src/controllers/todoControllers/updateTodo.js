@@ -7,15 +7,15 @@ const bcrypt = require("bcrypt");
 const { validateTodo } = require("../authControllers/validation/validation");
 
 const updateTodo = (req, res) => {
-  const { title, description, createdAt, updatedAt, status } = req.body;
+  const { title, description, completed } = req.body;
 
   const response = validateTodo(req.body);
 
   const sql =
-    "UPDATE todos SET title = ?, description = ?, createdAt = ?, updatedAt = ?, status = ? WHERE id = ?";
+    "UPDATE todos SET title = ?, description = ?, completed = ? WHERE id = ?";
   pool.execute(
     sql,
-    [title, description, createdAt, updatedAt, status, req.params.id],
+    [title, description, status, req.params.id],
     (err, result) => {
       if (err) {
         res.sendStatus(500);

@@ -15,14 +15,14 @@ const { createTodo } = require("../../controllers/todoControllers/createTodo");
 const { updateTodo } = require("../../controllers/todoControllers/updateTodo");
 
 const { deleteTodo } = require("../../controllers/todoControllers/deleteTodo");
-const {
+/* const {
   verifyToken,
-} = require("../../controllers/authControllers/middleware/verifyToken");
+} = require("../../controllers/authControllers/middleware/verifyToken"); */
 
-todoRoutes.get("/", verifyToken, todoController);
+todoRoutes.get("/", todoController);
 
-todoRoutes.post("/createTodo", verifyToken, createTodo);
-todoRoutes.put("/updateTodo/:id", verifyToken, updateTodo);
-todoRoutes.delete("/deleteTodo/:id", verifyToken, deleteTodo);
+todoRoutes.post("/createTodo", createTodo);
+todoRoutes.put("/updateTodo/:id", updateTodo);
+todoRoutes.delete("/deleteTodo/:id", deleteTodo);
 
 module.exports = { todoRoutes };
