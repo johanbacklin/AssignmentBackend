@@ -21,6 +21,10 @@ const mysql = require("mysql2");
 // Dotenv
 require("dotenv").config();
 
+const jwt = require("jsonwebtoken");
+
+const secret = process.env.SECRET_TOKEN;
+
 // Json
 app.use(express.json());
 

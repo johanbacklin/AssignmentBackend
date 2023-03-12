@@ -1,37 +1,34 @@
 import "../App.css";
-import axios from "axios";
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import { registerFunction } from "./functions/registerFunction";
 
 function App() {
-  const [InputUsername, setInputUserName] = useState("");
-  const [InputPassword, setInputPassword] = useState("");
+  const [userName, setUserName] = useState("");
+  const [password, setPassword] = useState("");
+  const [errorMessage, setErrorMessage] = useState("");
+  const [successMessage, setSuccessMessage] = useState("");
 
-  async function registerUser(e) {
+  async function registerHandler(e) {
     e.preventDefault();
-    try {
-      const response = await axios.post(
-        "http://localhost:3001/auth/registerController",
-        {
-          username: InputUsername,
-          password: InputPassword,
-        }
-      );
-      const data = await response.status;
 
-      if (data === 200) {
-        // Out put in frontend side
-        console.log("Register Success");
-        return data;
-      }
-    } catch (error) {
-      console.log(error);
+    if (userName === "" || password === "") {
+      setErrorMessage("Please fill in all the fields");
+      return;
+    }
+
+    const response = await registerFunction(userName, password);
+
+    if (response === 200) {
+      setSuccessMessage("You have successfully registered");
+      return;
+    } else {
+      setErrorMessage(response);
     }
   }
 
   return (
     <div className="App">
-      {/* <h1 className="title">Assignment Backend</h1> */}
       <div className="container">
         <div className="container-image-right">
           <p></p>
@@ -45,17 +42,17 @@ function App() {
             <input
               type="text"
               onChange={(event) => {
-                setInputUserName(event.target.value);
+                setUserName(event.target.value);
               }}
             />
             <label htmlFor="password">Password</label>
             <input
               type="password"
               onChange={(event) => {
-                setInputPassword(event.target.value);
+                setPassword(event.target.value);
               }}
             />
-            <button type="submit" onClick={registerUser}>
+            <button type="submit" onClick={registerHandler}>
               Submit
             </button>
             <p className="have__acount">
@@ -64,6 +61,8 @@ function App() {
                 Go to Login
               </Link>
             </p>
+            <p className="error-message">{errorMessage}</p>
+            <p className="success-message">{successMessage}</p>
           </form>
         </div>
       </div>

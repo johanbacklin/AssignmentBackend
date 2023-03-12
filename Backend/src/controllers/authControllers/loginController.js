@@ -1,12 +1,15 @@
 const pool = require("../../server");
-
-//Bcrypt
 const bcrypt = require("bcrypt");
-
-// Validation
 const { validateAuth } = require("./validation/validation");
+const {
+  verifyToken,
+} = require("../../controllers/authControllers/middleware/verifyToken");
 
-function loginController(req, res) {
+const jwt = require("jsonwebtoken");
+
+// ...
+
+function loginController(req, res, next) {
   try {
     const { username, password } = req.body;
 
@@ -22,12 +25,20 @@ function loginController(req, res) {
           const cryptPassword = result[0].password;
           const isMatch = bcrypt.compareSync(password, cryptPassword);
           if (isMatch) {
-            res.cookie("authToken", "hejhej", {
-              maxAge: 10 * 400000,
+            // Generate JWT token
+            const token = jwt.sign({ username }, process.env.SECRET_TOKEN, {
+              expiresIn: "0.5h",
+            });
+
+            // Set the token as a cookie in the response
+            res.cookie("authToken", token, {
+              maxAge: 3600000,
+              httpOnly: true,
               sameSite: "none",
               secure: true,
             });
-            res.sendStatus(200);
+
+            res.status(200).send({ message: "Logged in successfully!" });
           } else {
             res.sendStatus(404);
           }

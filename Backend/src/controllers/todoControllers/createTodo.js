@@ -7,28 +7,25 @@ const bcrypt = require("bcrypt");
 const { validateTodo } = require("../authControllers/validation/validation");
 
 const createTodo = (req, res) => {
-  const { title, description, createdAt, updatedAt, status } = req.body;
+  const { title, description, completed, user_id } = req.body;
 
   const response = validateTodo(req.body);
 
   const sql =
-    "INSERT INTO todos (title, description, createdAt, updatedAt, status) VALUES (?, ?, ?, ?, ?)";
+    "INSERT INTO todos (title, description, completed, user_id) VALUES (?, ?, ?, ?)";
 
-  pool.execute(
-    sql,
-    [title, description, createdAt, updatedAt, status],
-    (err, result) => {
-      if (err) {
-        res.sendStatus(500);
+  pool.execute(sql, [title, description, completed, user_id], (err, result) => {
+    console.log(err, result);
+    if (err) {
+      res.sendStatus(500);
+    } else {
+      if (response.error) {
+        res.status(400).send(response.error.details[0].message);
       } else {
-        if (response.error) {
-          res.status(400).send(response.error.details[0].message);
-        } else {
-          res.status(200).send("Todo created!");
-        }
+        res.status(200).send("Todo created!");
       }
     }
-  );
+  });
 };
 
 module.exports = { createTodo };
