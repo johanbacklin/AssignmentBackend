@@ -37,20 +37,28 @@ const dataBase = {
 const pool = mysql.createPool(dataBase);
 module.exports = pool;
 
-// Routes
+// Auth Routes
 const { routes } = require("./routes/authRoute/authRoute");
 app.use("/auth", routes);
 
 //todo Routes
 
 const { todoRoutes } = require("./routes/todoRoute/todoRoute");
-
 const {
   verifyToken,
 } = require("./controllers/authControllers/middleware/verifyToken");
 
 app.use("/todo", verifyToken, todoRoutes);
 
-app.listen(3001, () => {
-  console.log("Listening on port 3001!");
+//friend Routes
+const {
+  FriendAuthorization,
+} = require("./controllers/authControllers/middleware/FriendAuthorization");
+
+const { friendRoutes } = require("./routes/friendRoute/friendRoute");
+
+app.use("/friend", friendRoutes);
+
+app.listen(3002, () => {
+  console.log("Listening on port 3002!");
 });
