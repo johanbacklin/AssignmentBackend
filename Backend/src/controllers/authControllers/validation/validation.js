@@ -22,9 +22,7 @@ function validateAuth({ username, password }) {
 const schemaTodo = joi.object({
   title: joi.string().required(),
   description: joi.string().required(),
-  createdAt: joi.date().required(),
-  updatedAt: joi.date().required(),
-  status: joi.string().required(),
+  completed: joi.boolean().required(),
 });
 
 function validateTodo({ title, description, completed }) {

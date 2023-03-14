@@ -1,17 +1,15 @@
 import "./toDoForm.scss";
-
 import axios from "axios";
-import Cookies from "js-cookie";
 import { useState } from "react";
 import TodoItem from "../ToDoItem/ToDoItem";
+import { formSubmit } from "./toDoFormFunctions/formSubmitHandler";
+import { deleteTodoHandler } from "./toDoFormFunctions/deleteTodoHandler";
 
 function ToDoForm({ userId }) {
-  console.log("userId in ToDoForm:", userId);
-
   const [todoList, setTodoList] = useState([]);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
-  const [completed, setCompleted] = useState("");
+  const [completed, setCompleted] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
 
   async function logoutButtonHandler() {
@@ -37,50 +35,18 @@ function ToDoForm({ userId }) {
 
   async function formSubmitHandler(e) {
     e.preventDefault();
+    const response = await formSubmit(
+      e,
+      title,
+      description,
+      completed,
+      userId,
+      setErrorMessage,
+      setTitle
+    );
 
-    if (title === "" || description === "") {
-      setErrorMessage("Please fill in all the fields");
-      return;
-    }
-
-    if (
-      typeof completed === "undefined" ||
-      (typeof completed === "string" &&
-        completed !== "true" &&
-        completed !== "false") ||
-      (typeof completed === "boolean" &&
-        completed !== true &&
-        completed !== false)
-    ) {
-      setErrorMessage("Invalid value for completed");
-      return;
-    }
-
-    try {
-      const token = Cookies.get("authToken");
-
-      const response = await axios.post(
-        "http://localhost:3001/todo/createTodo",
-        {
-          title: title,
-          description: description,
-          completed: completed,
-          userId: userId,
-        },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-          withCredentials: true,
-        }
-      );
-
-      console.log(response);
-
-      setErrorMessage("");
-      setTitle("");
-    } catch (error) {
-      setErrorMessage(error.response.data);
+    if (response) {
+      setTodoList([...todoList, response]);
     }
   }
 
@@ -99,22 +65,9 @@ function ToDoForm({ userId }) {
     }
   };
 
-  const deleteTodoHandler = async (id) => {
-    try {
-      const response = await axios.delete(
-        `http://localhost:3001/todo/deleteTodo/${id}`
-      );
-
-      console.log(response);
-      setTodoList(todoList.filter((val) => val.id !== id));
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
   function handleCheckboxChange(event) {
     const isChecked = event.target.checked;
-    setCompleted(isChecked);
+    setCompleted(isChecked ? true : false);
   }
 
   return (

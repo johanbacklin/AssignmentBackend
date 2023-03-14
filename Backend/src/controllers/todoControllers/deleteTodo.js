@@ -1,16 +1,20 @@
 const pool = require("../../server");
 
-//Bcrypt
-const bcrypt = require("bcrypt");
-
 const deleteTodo = (req, res) => {
-  const sql = "DELETE FROM todos WHERE id = ?";
-  pool.execute(sql, [req.params.id], (err, result) => {
+  const userId = req.userId;
+  const todoId = req.params.id;
+
+  const sql = "DELETE FROM todos WHERE id = ? AND user_id = ?";
+  pool.execute(sql, [todoId, userId], (err, result) => {
     if (err) {
       res.sendStatus(500);
       console.log(err);
     } else {
-      res.status(200).send("Todo deleted!");
+      if (result.affectedRows === 0) {
+        res.status(404).send("Todo not found");
+      } else {
+        res.status(200).send("Todo deleted!");
+      }
     }
   });
 };
