@@ -9,15 +9,22 @@ export const loginFunction = async (userName, password) => {
         password: password,
       },
       {
-        responseType: "json",
-        withCredentials: true,
         headers: {
-          "Content-Type": "application/json",
+          sameSite: "none",
+          secure: true,
         },
+        withCredentials: true,
       }
     );
     if (response.status === 200) {
-      window.location.href = "/toDoPage";
+      const userId = response.data.user_id;
+
+      const now = new Date();
+      const time = now.getTime();
+      const expireTime = time + 3600000;
+      now.setTime(expireTime);
+      document.cookie = `userId=${userId};expires=${now.toUTCString()};path=/`;
+      window.location.href = "/todo";
       return response.data;
     }
     return response;

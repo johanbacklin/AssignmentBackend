@@ -1,5 +1,5 @@
 function logoutController(req, res) {
-  res.cookie("authToken", "", {
+  res.cookie("user_id", "", {
     expires: new Date(0),
     httpOnly: true,
     sameSite: "none",

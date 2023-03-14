@@ -1,12 +1,13 @@
-import React from "react";
 import "./toDoForm.scss";
 
 import axios from "axios";
-
+import Cookies from "js-cookie";
 import { useState } from "react";
 import TodoItem from "../ToDoItem/ToDoItem";
 
 function ToDoForm({ userId }) {
+  console.log("userId in ToDoForm:", userId);
+
   const [todoList, setTodoList] = useState([]);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -37,18 +38,27 @@ function ToDoForm({ userId }) {
   async function formSubmitHandler(e) {
     e.preventDefault();
 
+    if (title === "" || description === "") {
+      setErrorMessage("Please fill in all the fields");
+      return;
+    }
+
     if (
-      title === "" ||
-      description === "" ||
-      (completed === "" && completed !== "true" && completed !== "false")
+      typeof completed === "undefined" ||
+      (typeof completed === "string" &&
+        completed !== "true" &&
+        completed !== "false") ||
+      (typeof completed === "boolean" &&
+        completed !== true &&
+        completed !== false)
     ) {
-      setErrorMessage(
-        "Please fill in all the fields OR status should be true or false"
-      );
+      setErrorMessage("Invalid value for completed");
       return;
     }
 
     try {
+      const token = Cookies.get("authToken");
+
       const response = await axios.post(
         "http://localhost:3001/todo/createTodo",
         {
@@ -56,9 +66,17 @@ function ToDoForm({ userId }) {
           description: description,
           completed: completed,
           userId: userId,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+          withCredentials: true,
         }
       );
+
       console.log(response);
+
       setErrorMessage("");
       setTitle("");
     } catch (error) {
@@ -94,6 +112,11 @@ function ToDoForm({ userId }) {
     }
   };
 
+  function handleCheckboxChange(event) {
+    const isChecked = event.target.checked;
+    setCompleted(isChecked);
+  }
+
   return (
     <div className="todo__container">
       <button onClick={logoutButtonHandler}>Logout</button>
@@ -116,13 +139,15 @@ function ToDoForm({ userId }) {
             setDescription(event.target.value);
           }}
         />
-        <label htmlFor="text">Status</label>
-        <input
-          type="text"
-          onChange={(event) => {
-            setCompleted(event.target.value);
-          }}
-        />
+        <div>
+          <label htmlFor="completed">Completed</label>
+          <input
+            type="checkbox"
+            id="completed"
+            name="completed"
+            onChange={handleCheckboxChange}
+          />
+        </div>
         <button type="submit">Submit</button>
         <p className="error-message">{errorMessage}</p>
       </form>

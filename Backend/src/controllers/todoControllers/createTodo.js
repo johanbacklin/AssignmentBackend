@@ -8,6 +8,8 @@ const { validateTodo } = require("../authControllers/validation/validation");
 
 const createTodo = (req, res) => {
   const { title, description, completed, user_id } = req.body;
+  console.log(user_id);
+  console.log(req.body, "HÄR ÄR REQBOIDYN");
 
   const response = validateTodo(req.body);
 

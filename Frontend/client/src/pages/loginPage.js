@@ -47,7 +47,7 @@ function LogInPage() {
             <button type="submit">Submit</button>
             <p className="have__acount">
               Already have an account?
-              <Link to="/RegisterPage" className="link">
+              <Link to="/register" className="link">
                 Go to Register
               </Link>
             </p>

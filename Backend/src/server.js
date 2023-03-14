@@ -1,6 +1,7 @@
 // Express;
 const express = require("express");
 const app = express();
+
 // Cookie-parser
 const cookie = require("cookie-parser");
 app.use(cookie());
@@ -14,15 +15,16 @@ app.use(
   })
 );
 
-/* app.use(cookieParser()); */
-
 // Dotenv
 require("dotenv").config();
 //Mysql
 const mysql = require("mysql2");
 
-// MiddleWares
-app.use(express.json());
+/* //MiddleWares
+app.use(express.json()); */
+
+const bodyParser = require("body-parser");
+app.use(bodyParser.json());
 
 // Database
 const dataBase = {
@@ -40,10 +42,13 @@ const { routes } = require("./routes/authRoute/authRoute");
 app.use("/auth", routes);
 
 //todo Routes
+
+const { todoRoutes } = require("./routes/todoRoute/todoRoute");
+
 const {
   verifyToken,
 } = require("./controllers/authControllers/middleware/verifyToken");
-const { todoRoutes } = require("./routes/todoRoute/todoRoute");
+
 app.use("/todo", verifyToken, todoRoutes);
 
 app.listen(3001, () => {
