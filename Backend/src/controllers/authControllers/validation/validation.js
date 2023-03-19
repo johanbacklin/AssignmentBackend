@@ -34,4 +34,17 @@ function validateTodo({ title, description, completed }) {
   return results;
 }
 
-module.exports = { validateAuth, validateTodo };
+// Schema for user
+
+const schemaUser = joi.object({
+  userId: joi.required(),
+});
+
+function validateUser({ userId }) {
+  const results = schemaUser.validate({
+    userId,
+  });
+  return results;
+}
+
+module.exports = { validateAuth, validateTodo, validateUser };

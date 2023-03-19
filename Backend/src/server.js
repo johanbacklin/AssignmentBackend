@@ -51,14 +51,13 @@ const {
 app.use("/todo", verifyToken, todoRoutes);
 
 //friend Routes
+
+const { friendRoutes } = require("./routes/friendRoute/friendRoute");
 const {
   FriendAuthorization,
 } = require("./controllers/authControllers/middleware/FriendAuthorization");
+app.use("/friends", friendRoutes);
 
-const { friendRoutes } = require("./routes/friendRoute/friendRoute");
-
-app.use("/friend", friendRoutes);
-
-app.listen(3002, () => {
-  console.log("Listening on port 3002!");
+app.listen(3001, () => {
+  console.log("Listening on port 3001!");
 });

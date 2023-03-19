@@ -1,0 +1,188 @@
+.App {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  height: 100vh;
+  width: 100%;
+
+  /*   background-color: #282c34; */
+  background-image: url(./assets/ToDo3.jpg);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  & .app-container {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100%;
+
+    & .user__list {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100%;
+      width: 100%;
+
+      & .user__container {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        height: 100%;
+        width: 100%;
+        background-color: #282c3400;
+        box-shadow: 0 0 5px 0 rgba(135, 133, 133, 0.675);
+        border-radius: 10px;
+        margin: 10px;
+        padding: 10px;
+      }
+    }
+  }
+
+  .todopage-container {
+    display: flex;
+    flex-direction: column;
+  }
+
+  & .error-message {
+    font-size: 12px;
+    color: rgba(240, 34, 34, 0.406);
+  }
+
+  & .success-message {
+    font-size: 12px;
+    color: rgba(0, 128, 0, 0.63);
+  }
+
+  & .container {
+    display: flex;
+    width: 750px;
+    height: 500px;
+  }
+
+  & .container-image-right {
+    display: flex;
+    flex: 1;
+    background-image: url(./assets/ToDoRegister.jpg);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    border-bottom-left-radius: 40px;
+    border-top-left-radius: 40px;
+    /* opacity: 75%; */
+    box-shadow: 0 0 5px 0 rgba(135, 133, 133, 0.675);
+  }
+
+  & .link {
+    cursor: pointer;
+    color: #61dafb;
+    margin: 10px;
+    font-size: 12px;
+  }
+
+  & .container-form-left {
+    flex: 1;
+    background-color: #282c3400;
+    box-shadow: 0 0 5px 0 rgba(135, 133, 133, 0.675);
+    border-bottom-right-radius: 10px;
+    border-top-right-radius: 10px;
+  }
+
+  & .container-image-right p {
+    font-size: 20px;
+    font-weight: bold;
+    margin: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  & .title {
+    font-size: 30px;
+    font-weight: bold;
+    margin: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  & .container-form-left form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+  }
+
+  & .container-form-left form input {
+    width: 300px;
+    height: 30px;
+    border-radius: 5px;
+    border: none;
+    margin: 10px;
+    background-color: rgba(245, 245, 245, 0.72);
+    border: 2px solid #61dafba5;
+    color: rgb(0, 0, 0);
+    font-size: 16px;
+  }
+
+  & .container-form-left form button {
+    width: 100px;
+    height: 30px;
+    border-radius: 5px;
+    border: none;
+    margin: 10px;
+    background-color: #61dafb7b;
+    color: black;
+    font-weight: bold;
+
+    &:hover {
+      background-color: #669baa98;
+    }
+  }
+
+  & .container-form-left form .link {
+    font-size: 12px;
+    color: #61dafb;
+    margin: 10px;
+    font-size: 12px;
+  }
+
+  & .container-form-left form .link {
+    font-size: 12px;
+    color: #61dafb;
+    margin: 10px;
+    font-size: 12px;
+  }
+
+  .container-form-left {
+    flex: 1;
+    background-color: #282c3400;
+    box-shadow: 0 0 5px 0 rgba(135, 133, 133, 0.675);
+    border-bottom-right-radius: 10px;
+    border-top-right-radius: 10px;
+  }
+
+  .container-image-right p {
+    font-size: 20px;
+    font-weight: bold;
+    margin: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .title {
+    font-size: 30px;
+    font-weight: bold;
+    margin: 10px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: rgba(255, 255, 255, 0.87);
+    margin-bottom: 150px;
+  }
+}

@@ -16,8 +16,7 @@ function TodoItem(props) {
           <button>
             <a href={`/todo/${props.todo.id}`}>Edit</a>
           </button>
-
-          <button onClick={props.deleteTodoHandler}>Delete</button>
+          <button onClick={props.deleteTodoHandler}>Remove Todo</button>
         </div>
       </div>
     </div>

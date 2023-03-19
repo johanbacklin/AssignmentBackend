@@ -1,16 +1,17 @@
 import axios from "axios";
 import Cookies from "js-cookie";
 
-async function formSubmit(
-  e,
-  title,
-  description,
+const handleUpdateSubmit = async (
+  id,
+  event,
   completed,
+  description,
+  title,
   userId,
-  setErrorMessage,
-  setTitle
-) {
-  e.preventDefault();
+  setErrorMessage
+) => {
+  event.preventDefault();
+  console.log("IS THIS UPDATING?");
 
   if (title === "" || description === "") {
     setErrorMessage("Please fill in all the fields");
@@ -33,8 +34,8 @@ async function formSubmit(
   try {
     const token = Cookies.get("authToken");
 
-    const response = await axios.post(
-      "http://localhost:3001/todo/createTodo",
+    const response = await axios.put(
+      `http://localhost:3001/todo/updateTodo/${id}`,
       {
         title: title,
         description: description,
@@ -42,16 +43,19 @@ async function formSubmit(
         userId: userId,
       },
       {
+        method: "PUT",
         headers: {
+          "Content-Type": "application/json",
           Authorization: `Bearer ${token}`,
         },
         withCredentials: true,
       }
     );
-    console.log(response);
+    console.log(response + "THIS IS THE RESPONSE");
+    setErrorMessage("");
   } catch (error) {
     setErrorMessage(error.response.data);
   }
-}
+};
 
-export { formSubmit };
+export { handleUpdateSubmit };

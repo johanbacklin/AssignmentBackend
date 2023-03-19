@@ -21,3 +21,5 @@ const FriendAuthorization = (req, res, next) => {
     return res.status(401).send({ error: "Invalid JWT token" });
   }
 };
+
+module.exports = { FriendAuthorization };

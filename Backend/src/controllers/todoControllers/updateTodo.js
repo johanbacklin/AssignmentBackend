@@ -1,35 +1,47 @@
 const pool = require("../../server");
-
-const { validateTodo } = require("../authControllers/validation/validation");
+const jwt = require("jsonwebtoken");
+const {
+  validateUser,
+  validateTodo,
+} = require("../authControllers/validation/validation");
 
 const updateTodo = (req, res) => {
-  const { title, description, completed } = req.body;
+  const authToken = req.cookies.authToken;
+  const decodedToken = jwt.verify(authToken, process.env.SECRET_TOKEN);
+  const userId = decodedToken.userId;
   const id = req.params.id;
-  const userId = req.userId;
+  const { title, description, completed } = req.body;
 
-  const response = validateTodo(req.body);
+  const response = validateUser({ userId });
+  const response2 = validateTodo({ title, description, completed });
+  if (response.error) {
+    res
+      .status(400)
+      .send(response.error.details[0].message + " User id is invalid");
 
-  const sql =
-    "UPDATE todos SET title = ?, completed = ?, description = ? WHERE id = ? AND user_id = ?";
-
-  pool.execute(
-    sql,
-    [title, completed, description, id, userId],
-    (err, result) => {
-      if (err) {
-        res.sendStatus(500);
-      } else if (result.affectedRows === 0) {
-        res.sendStatus(404);
-      } else {
-        if (response.error) {
-          res.status(400).send(response.error.details[0].message);
-          console.log(response.error.details[0].message);
+    return;
+  } else if (response2.error) {
+    res.status(400).send(response2.error.details[0].message);
+    return;
+  } else {
+    const sql =
+      "UPDATE todos SET title = ?, description = ?, completed = ? WHERE id = ? AND user_id = ?";
+    pool.execute(
+      sql,
+      [title, description, completed, id, userId],
+      (err, result) => {
+        if (err) {
+          res.status(500).send("Error updating todo in database!");
         } else {
-          res.status(200).send("Todo updated!");
+          if (result.affectedRows > 0) {
+            res.status(200).send("Todo updated!");
+          } else {
+            res.status(404).send("Todo not found in database!");
+          }
         }
       }
-    }
-  );
+    );
+  }
 };
 
 module.exports = { updateTodo };

@@ -1,4 +1,4 @@
-import "../App.css";
+import "../App.scss";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import { registerFunction } from "./functions/registerFunction";

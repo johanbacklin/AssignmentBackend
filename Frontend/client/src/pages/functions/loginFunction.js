@@ -18,6 +18,8 @@ export const loginFunction = async (userName, password) => {
     );
     if (response.status === 200) {
       const userId = response.data.user_id;
+      const storedUsername = userName;
+      console.log(userName);
 
       const now = new Date();
       const time = now.getTime();

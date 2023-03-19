@@ -1,10 +1,70 @@
+#friendId {
+  width: 500px;
+  margin-bottom: 1rem;
+  padding: 0.5rem;
+  border-radius: 0.5rem;
+  border: 1px solid #ccc;
+}
+
+h1 {
+  font-size: 30px;
+  font-weight: bold;
+  color: #7c6a6a;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+  margin-top: 50px;
+}
+
 .todo__container {
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
   width: 100%;
   height: 100%;
+
+  & .todo__list {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+  }
+
+  & .todo__wrapper {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+  }
+
+  & .todo-list-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+  }
+
+  & .from-2 {
+    background-image: url(../../assets/ToDoRegister.jpg);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    border-radius: 40px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    margin-top: 20px;
+    background-color: #ffffff00;
+    border: 1px solid #cccccc0e;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.114);
+    margin-left: 100px;
+  }
 
   input {
     width: 220px;
@@ -12,11 +72,14 @@
     border-radius: 5px;
     border: none;
     margin: 10px;
-    background-color: rgba(245, 245, 245, 0.531);
+    background-color: rgba(245, 245, 245, 0.967);
     border: none;
   }
 
   label {
+    background-color: #ffffffae;
+    padding: 5px;
+    border-radius: 5px;
     font-size: 16px;
     margin: 10px;
   }
@@ -41,15 +104,8 @@
     }
   }
 
-  .todo__list {
-    margin: 0 auto;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-  }
-
   .todo-container {
-    /*  background-image: url(../../assets/ToDoRegister.jpg); */
+    background-image: url(../../assets/ToDoRegister.jpg);
     background-color: #cccccc6e;
     background-size: cover;
     background-position: center;
@@ -58,10 +114,9 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    max-width: 300px;
     padding: 20px;
     border: 1px solid #ccc;
-    border-radius: 5px;
+    border-radius: 40px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.15);
 
     & .todo-image-container {
@@ -69,37 +124,56 @@
       justify-content: center;
       align-items: center;
       flex-direction: column;
-      width: 250px;
-      height: 250px;
 
       & .todo-title {
         font-size: 20px;
         font-weight: bold;
-        color: #7c6a6abf;
+        background-color: #52506396;
+        color: #fffffffc;
         text-align: center;
+        border-radius: 5px;
+        padding: 5px;
       }
 
       & .todo-description {
         font-size: 16px;
-        color: #7c6a6aa5;
+        padding: 2px;
         text-align: center;
+        background-color: #52506396;
+        color: #fffffffc;
+        text-align: center;
+        border-radius: 5px;
+        padding: 5px;
+        margin-bottom: 20px;
       }
 
       & .todo-created {
         font-size: 14px;
-        color: #7c6a6a;
         text-align: center;
+        background-color: #52506396;
+        color: #fffffffc;
+        text-align: center;
+        border-radius: 5px;
+        margin-bottom: 20px;
       }
 
       & .todo-updated {
         font-size: 14px;
-        color: #7c6a6a;
+        background-color: #52506396;
+        color: #fffffffc;
+        text-align: center;
+        border-radius: 5px;
+        margin-bottom: 5px;
         text-align: center;
       }
 
       & .todo-status {
         font-size: 14px;
-        color: #7c6a6a;
+        background-color: #52506396;
+        color: #fffffffc;
+        text-align: center;
+        border-radius: 5px;
+        padding: 5px;
         text-align: center;
       }
 
@@ -107,8 +181,52 @@
         display: flex;
         justify-content: space-between;
         width: 100%;
-        margin-top: 50px;
+        margin-top: 5px;
       }
+    }
+  }
+}
+
+// ------------------  TODO HEADER
+.todo__header {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+
+  & .username-left-header {
+    display: flex;
+    width: 250px;
+    font-size: 12px;
+    font-weight: bold;
+    color: #7c6a6abf;
+  }
+
+  & .username-right-header {
+    display: flex;
+    align-items: center;
+    width: 250px;
+    font-size: 12px;
+    font-weight: bold;
+    color: #7c6a6abf;
+  }
+
+  button {
+    width: 100px;
+    height: 30px;
+    border-radius: 5px;
+    border: none;
+    margin: 10px;
+    background-color: #61dafb9c;
+    color: black;
+    font-weight: bold;
+
+    a {
+      text-decoration: none;
+      color: black;
+    }
+
+    &:hover {
+      background-color: #669baa98;
     }
   }
 }

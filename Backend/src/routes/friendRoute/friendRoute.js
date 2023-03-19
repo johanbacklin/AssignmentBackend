@@ -7,12 +7,12 @@ const friendRoutes = express.Router();
 const {
   friendController,
 } = require("../../controllers/friendControllers/friendController");
+/* 
+const {
+  createFriend,
+} = require("../../controllers/friendController/createFriend"); */
 
 /* const {
-  createFriend,
-} = require("../../controllers/friendController/createFriend");
-
-const {
   updateFriend,
 } = require("../../controllers/friendController/updateFriend"); */
 

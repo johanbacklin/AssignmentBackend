@@ -1,0 +1,25 @@
+.todo-container {
+  display: flex;
+  flex-direction: column;
+
+  & .get-todo-id {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+
+    width: 100%;
+
+    button {
+      margin: 5px;
+      padding: 5px;
+      width: 150px;
+      background-color: lightblue;
+      border: 2px solid lightblue;
+
+      &:hover {
+        background-color: rgba(255, 255, 255, 0.529);
+        border: 2px solid lightblue;
+      }
+    }
+  }
+}

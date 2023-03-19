@@ -19,6 +19,7 @@ function loginController(req, res, next) {
     pool.execute(sql, [username], (err, result) => {
       if (err) {
         res.sendStatus(500);
+        console.log(err);
       } else {
         if (result.length > 0) {
           const userId = result[0].id;

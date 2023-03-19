@@ -2,15 +2,22 @@ import "./toDoForm.scss";
 import axios from "axios";
 import { useState } from "react";
 import TodoItem from "../ToDoItem/ToDoItem";
-import { formSubmit } from "./toDoFormFunctions/formSubmitHandler";
+import Cookies from "js-cookie";
 import { deleteTodoHandler } from "./toDoFormFunctions/deleteTodoHandler";
+import { formSubmit } from "./toDoFormFunctions/formSubmitHandler";
 
-function ToDoForm({ userId }) {
+function ToDoForm({ userId, userName, pageTitle }) {
   const [todoList, setTodoList] = useState([]);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [completed, setCompleted] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
+  const [friendId, setFriendId] = useState("");
+
+  function formSubmitHandler(event) {
+    formSubmit(event, title, description, completed, userId, todoList);
+    getAllTodos();
+  }
 
   async function logoutButtonHandler() {
     try {
@@ -30,23 +37,6 @@ function ToDoForm({ userId }) {
       }
     } catch (error) {
       console.log(error);
-    }
-  }
-
-  async function formSubmitHandler(e) {
-    e.preventDefault();
-    const response = await formSubmit(
-      e,
-      title,
-      description,
-      completed,
-      userId,
-      setErrorMessage,
-      setTitle
-    );
-
-    if (response) {
-      setTodoList([...todoList, response]);
     }
   }
 
@@ -70,54 +60,104 @@ function ToDoForm({ userId }) {
     setCompleted(isChecked ? true : false);
   }
 
+  function handleDeleteTodo(todoId) {
+    deleteTodoHandler(todoId);
+
+    setTodoList(todoList.filter((todo) => todo.id !== todoId));
+  }
+
+  async function addFriend(friendId) {
+    try {
+      const token = Cookies.get("token");
+      const response = await axios.post(
+        "http://localhost:3001/friend",
+        { friendId },
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+            "Content-Type": "application/json",
+          },
+          withCredentials: true,
+        }
+      );
+      console.log(response.data);
+      window.location.reload();
+    } catch (error) {
+      console.error(error);
+      setErrorMessage(error.response.data.message);
+    }
+  }
+
   return (
-    <div className="todo__container">
-      <button onClick={logoutButtonHandler}>Logout</button>
-      <h1>Add Your Todos here !!! </h1>
-      <form className="form__container" onSubmit={formSubmitHandler}>
-        <div className="title-form">
-          <h1>Create To Do</h1>
+    <>
+      <div className="todo__header">
+        <div className="username-left-header">
+          <h1>TAKE IN USER NAME{userName}</h1>
         </div>
-        <label htmlFor="name">Title</label>
-        <input
-          type="text"
-          onChange={(event) => {
-            setTitle(event.target.value);
-          }}
-        />
-        <label htmlFor="text">Description</label>
-        <input
-          type="text"
-          onChange={(event) => {
-            setDescription(event.target.value);
-          }}
-        />
-        <div>
-          <label htmlFor="completed">Completed</label>
-          <input
-            type="checkbox"
-            id="completed"
-            name="completed"
-            onChange={handleCheckboxChange}
-          />
+        <div className="username-right-header">
+          <button onClick={logoutButtonHandler}>Logout</button>
         </div>
-        <button type="submit">Submit</button>
-        <p className="error-message">{errorMessage}</p>
-      </form>
-      <h1>Todo List</h1>
-      <button onClick={getAllTodos}>Get All Todos</button>
-      <div className="todo__list">
-        {todoList.map((val, key) => {
-          return (
-            <TodoItem
-              todo={val}
-              key={key}
-              deleteTodoHandler={() => deleteTodoHandler(val.id)}
-            />
-          );
-        })}
       </div>
-    </div>
+      <label htmlFor="friendId">Friend ID</label>
+      <input
+        type="text"
+        id="friendId"
+        name="friendId"
+        value={friendId}
+        onChange={(e) => setFriendId(e.target.value)}
+      />
+      <div className="todo__container">
+        <div className="todo__wrapper">
+          <form className="from-2" onSubmit={formSubmitHandler}>
+            <div className="title-form">
+              <h1>{pageTitle}</h1>
+            </div>
+            <label htmlFor="name">Title</label>
+            <input
+              type="text"
+              onChange={(event) => {
+                setTitle(event.target.value);
+              }}
+            />
+            <label htmlFor="text">Description</label>
+            <input
+              type="text"
+              onChange={(event) => {
+                setDescription(event.target.value);
+              }}
+            />
+            <div>
+              <label htmlFor="completed">Completed</label>
+              <input
+                type="checkbox"
+                id="completed"
+                name="completed"
+                onChange={handleCheckboxChange}
+              />
+            </div>
+            <button type="submit">Submit</button>
+            <p className="error-message">{errorMessage}</p>
+          </form>
+        </div>
+        <div className="todo-list-container">
+          <h1>Todo List</h1>
+          <button onClick={getAllTodos}>Get All Todos</button>
+          <div className="todo__list">
+            {todoList.map((val, key) => {
+              return (
+                <TodoItem
+                  todo={val}
+                  key={key}
+                  deleteTodoHandler={() =>
+                    deleteTodoHandler(val.id, setTodoList, todoList, userId)
+                  }
+                />
+              );
+            })}
+          </div>
+        </div>
+      </div>
+    </>
   );
 }
 

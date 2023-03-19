@@ -8,17 +8,17 @@ function verifyToken(req, res, next) {
 
   console.log("token", token);
   if (!token) {
-    return res.status(401).redirect("/login");
+    return res.status(401).redirect("/");
   }
   try {
     const decoded = jwt.verify(token, secret);
     if (!decoded.userId) {
-      return res.status(401).redirect("/login");
+      return res.status(401).redirect("/");
     }
     req.userId = decoded.userId;
     next();
   } catch (err) {
-    res.status(401).redirect("/login");
+    res.status(401).redirect("/");
   }
 }
 
