@@ -47,4 +47,22 @@ function validateUser({ userId }) {
   return results;
 }
 
-module.exports = { validateAuth, validateTodo, validateUser };
+// Schema for adding friends
+
+const schemaAddFriend = joi.object({
+  friendId: joi.number().required(),
+});
+
+function validateAddFriend({ friendId }) {
+  const results = schemaAddFriend.validate({
+    friendId,
+  });
+  return results;
+}
+
+module.exports = {
+  validateAuth,
+  validateTodo,
+  validateUser,
+  validateAddFriend,
+};

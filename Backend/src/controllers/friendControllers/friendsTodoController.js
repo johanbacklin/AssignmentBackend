@@ -4,10 +4,8 @@ const cookie = require("cookie");
 
 const { validateUser } = require("../authControllers/validation/validation");
 
-function todoController(req, res) {
+function friendsTodoController(req, res) {
   const authToken = req.cookies.authToken;
-
-  console.log(authToken);
 
   const decodedToken = jwt.verify(authToken, process.env.SECRET_TOKEN);
 
@@ -15,7 +13,6 @@ function todoController(req, res) {
 
   const response = validateUser({ userId });
 
-  console.log(response);
   if (response.error) {
     res
       .status(400)
@@ -23,8 +20,7 @@ function todoController(req, res) {
     return;
   } else {
     const sql =
-      "SELECT t.*, u.username FROM todos t JOIN users u ON t.user_id = u.ID WHERE t.user_id = ?";
-
+      "SELECT t.*, u.username FROM todos t JOIN users u ON t.user_id = u.ID WHERE t.user_id IN (SELECT friend_id FROM friends WHERE user_id = ?) ORDER BY t.created_at DESC";
     pool.execute(sql, [userId], (err, result) => {
       if (err) {
         return res.status(500).send("Internal server error");
@@ -35,4 +31,4 @@ function todoController(req, res) {
   }
 }
 
-module.exports = { todoController };
+module.exports = { friendsTodoController };

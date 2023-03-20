@@ -6,13 +6,12 @@ import Cookies from "js-cookie";
 import { deleteTodoHandler } from "./toDoFormFunctions/deleteTodoHandler";
 import { formSubmit } from "./toDoFormFunctions/formSubmitHandler";
 
-function ToDoForm({ userId, userName, pageTitle }) {
+function ToDoForm({ userId, pageTitle }) {
   const [todoList, setTodoList] = useState([]);
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [completed, setCompleted] = useState(false);
   const [errorMessage, setErrorMessage] = useState("");
-  const [friendId, setFriendId] = useState("");
 
   function formSubmitHandler(event) {
     formSubmit(event, title, description, completed, userId, todoList);
@@ -66,46 +65,17 @@ function ToDoForm({ userId, userName, pageTitle }) {
     setTodoList(todoList.filter((todo) => todo.id !== todoId));
   }
 
-  async function addFriend(friendId) {
-    try {
-      const token = Cookies.get("token");
-      const response = await axios.post(
-        "http://localhost:3001/friend",
-        { friendId },
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-            "Content-Type": "application/json",
-          },
-          withCredentials: true,
-        }
-      );
-      console.log(response.data);
-      window.location.reload();
-    } catch (error) {
-      console.error(error);
-      setErrorMessage(error.response.data.message);
-    }
-  }
-
   return (
     <>
       <div className="todo__header">
         <div className="username-left-header">
-          <h1>TAKE IN USER NAME{userName}</h1>
+          <h1>Hello</h1>
         </div>
         <div className="username-right-header">
           <button onClick={logoutButtonHandler}>Logout</button>
         </div>
       </div>
-      <label htmlFor="friendId">Friend ID</label>
-      <input
-        type="text"
-        id="friendId"
-        name="friendId"
-        value={friendId}
-        onChange={(e) => setFriendId(e.target.value)}
-      />
+
       <div className="todo__container">
         <div className="todo__wrapper">
           <form className="from-2" onSubmit={formSubmitHandler}>
@@ -139,6 +109,7 @@ function ToDoForm({ userId, userName, pageTitle }) {
             <p className="error-message">{errorMessage}</p>
           </form>
         </div>
+
         <div className="todo-list-container">
           <h1>Todo List</h1>
           <button onClick={getAllTodos}>Get All Todos</button>

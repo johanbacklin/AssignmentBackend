@@ -17,7 +17,6 @@ h1 {
 }
 
 .todo__container {
-  display: flex;
   align-items: center;
   justify-content: center;
   width: 100%;
@@ -63,7 +62,6 @@ h1 {
     border: 1px solid #cccccc0e;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.114);
-    margin-left: 100px;
   }
 
   input {

@@ -53,9 +53,9 @@ app.use("/todo", verifyToken, todoRoutes);
 //friend Routes
 
 const { friendRoutes } = require("./routes/friendRoute/friendRoute");
-const {
+/* const {
   FriendAuthorization,
-} = require("./controllers/authControllers/middleware/FriendAuthorization");
+} = require("./controllers/authControllers/middleware/FriendAuthorization"); */
 app.use("/friends", friendRoutes);
 
 app.listen(3001, () => {

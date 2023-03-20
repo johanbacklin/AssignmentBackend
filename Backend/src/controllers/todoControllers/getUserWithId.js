@@ -28,7 +28,6 @@ const getUserWithId = (req, res) => {
           res.status(200).json(result[0]);
         } else {
           res.status(404).send("Todo not found in database!");
-          console.log(result);
         }
       }
     });
