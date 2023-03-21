@@ -39,12 +39,12 @@ button {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  align-items: center;
 
   & .get-todo-id {
     display: flex;
     flex-direction: row;
     justify-content: center;
+    height: 50px;
     width: 100%;
 
     button {

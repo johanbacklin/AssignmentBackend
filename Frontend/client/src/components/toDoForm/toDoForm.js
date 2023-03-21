@@ -66,7 +66,7 @@ function ToDoForm({ userId, pageTitle }) {
     setCompleted(isChecked ? true : false);
   }
 
-  function deleteTodoHandler(todoId) {
+  function handleDeleteTodo(todoId) {
     deleteTodoHandler(todoId);
 
     setTodoList(todoList.filter((todo) => todo.id !== todoId));
