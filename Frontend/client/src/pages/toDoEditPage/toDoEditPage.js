@@ -108,7 +108,7 @@ function ToDoEditPage() {
 
   return (
     <>
-      <div className="todo-container">
+      <div className="container">
         <h1>Edit Todo</h1>
         <div className="get-todo-id">
           <button onClick={getTodo}>Get Todo</button>

@@ -54,13 +54,17 @@ select {
 
 .todo-container {
   display: flex;
-  width: 300px;
-  height: 250px;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  width: 350px;
   background-image: url(../../../assets/ToDoRegister.jpg);
   background-color: #cccccc6e;
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
+  border-radius: 5px;
+  margin-top: 100px;
 
   & .todo-image-container {
     display: flex;
@@ -76,6 +80,7 @@ select {
 
     h3 {
       background-color: white;
+      margin: 2px;
       opacity: 75%;
     }
 

@@ -11,7 +11,6 @@ const handleUpdateSubmit = async (
   setErrorMessage
 ) => {
   event.preventDefault();
-  console.log("IS THIS UPDATING?");
 
   if (title === "" || description === "") {
     setErrorMessage("Please fill in all the fields");
@@ -51,7 +50,7 @@ const handleUpdateSubmit = async (
         withCredentials: true,
       }
     );
-    console.log(response + "THIS IS THE RESPONSE");
+
     setErrorMessage("");
   } catch (error) {
     setErrorMessage(error.response.data);

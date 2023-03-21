@@ -2,7 +2,6 @@ import "./toDoForm.scss";
 import axios from "axios";
 import { useState } from "react";
 import TodoItem from "../ToDoItem/ToDoItem";
-import Cookies from "js-cookie";
 import { deleteTodoHandler } from "./toDoFormFunctions/deleteTodoHandler";
 import { formSubmit } from "./toDoFormFunctions/formSubmitHandler";
 
@@ -14,7 +13,15 @@ function ToDoForm({ userId, pageTitle }) {
   const [errorMessage, setErrorMessage] = useState("");
 
   function formSubmitHandler(event) {
-    formSubmit(event, title, description, completed, userId, todoList);
+    formSubmit(
+      event,
+      title,
+      description,
+      completed,
+      userId,
+      todoList,
+      setErrorMessage
+    );
     getAllTodos();
   }
 
@@ -59,7 +66,7 @@ function ToDoForm({ userId, pageTitle }) {
     setCompleted(isChecked ? true : false);
   }
 
-  function handleDeleteTodo(todoId) {
+  function deleteTodoHandler(todoId) {
     deleteTodoHandler(todoId);
 
     setTodoList(todoList.filter((todo) => todo.id !== todoId));
