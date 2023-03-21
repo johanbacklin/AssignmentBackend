@@ -28,12 +28,11 @@ const getUserWithId = (req, res) => {
     pool.execute(sql, [todoId, userId], (err, result) => {
       if (err) {
         res.status(500).send("Something went wrong with todo from database!");
-        console.log(err);
       } else {
-        if (result.length > 0) {
-          res.status(200).json(result[0]);
-        } else {
+        if (result.length === 0) {
           res.status(404).send("Todo not found in database!");
+        } else {
+          res.status(200).json(result[0]);
         }
       }
     });

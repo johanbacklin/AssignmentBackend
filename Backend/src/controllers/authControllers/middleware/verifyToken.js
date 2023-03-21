@@ -3,10 +3,8 @@ const jwt = require("jsonwebtoken");
 const secret = process.env.SECRET_TOKEN;
 
 function verifyToken(req, res, next) {
-  console.log("cookies", req.cookies);
   const token = req.cookies.authToken;
 
-  console.log("token", token);
   if (!token) {
     return res.status(403).send({ error: "Authorization header missing" });
   }

@@ -26,13 +26,11 @@ function getFriendList(req, res) {
         res
           .status(500)
           .send("Something went wrong with friends from database!");
-        console.log(err);
       } else {
-        if (result.length > 0) {
-          res.status(200).json(result);
-        } else {
+        if (result.length === 0) {
           res.status(404).send("Friends not found in database!");
-          console.log(result);
+        } else {
+          res.status(200).json(result);
         }
       }
     });

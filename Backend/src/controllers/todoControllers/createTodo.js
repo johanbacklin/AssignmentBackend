@@ -31,7 +31,7 @@ const createTodo = (req, res) => {
       (err, result) => {
         console.log(userId);
         if (err) {
-          res.status(500).send("Error adding to database!");
+          res.status(400).send("Error adding to database!");
         } else {
           res.status(201).send("Todo created!");
         }

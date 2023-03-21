@@ -7,15 +7,12 @@ const { validateUser } = require("../authControllers/validation/validation");
 function todoController(req, res) {
   const authToken = req.cookies.authToken;
 
-  console.log(authToken);
-
   const decodedToken = jwt.verify(authToken, process.env.SECRET_TOKEN);
 
   const userId = decodedToken.userId;
 
   const response = validateUser({ userId });
 
-  console.log(response);
   if (response.error) {
     res
       .status(400)

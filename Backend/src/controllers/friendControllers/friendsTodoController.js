@@ -22,8 +22,8 @@ function friendsTodoController(req, res) {
     const sql =
       "SELECT t.*, u.username FROM todos t JOIN users u ON t.user_id = u.ID WHERE t.user_id IN (SELECT friend_id FROM friends WHERE user_id = ?) ORDER BY t.created_at DESC";
     pool.execute(sql, [userId], (err, result) => {
-      if (err) {
-        return res.status(500).send("Internal server error");
+      if (result.length === 0) {
+        return res.status(404).send("No friends found in database!");
       } else {
         res.status(200).send(result);
       }

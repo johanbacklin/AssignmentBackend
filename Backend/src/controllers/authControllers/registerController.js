@@ -24,10 +24,9 @@ const registerController = (req, res) => {
 
   const salt = bcrypt.genSaltSync(10);
   const hash = bcrypt.hashSync(password, salt);
-
   pool.execute(sql, [username, hash], (err, result) => {
     if (err) {
-      res.status(500).send(err.message);
+      res.status(404).send(err.message);
     } else {
       res.status(201).send("User registered!");
     }

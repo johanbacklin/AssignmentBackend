@@ -20,8 +20,6 @@ const deleteTodo = (req, res) => {
 
   const response = validateUser({ userId });
 
-  console.log(response + "response from delete todo");
-
   if (response.error || responseTodoId.error) {
     res
       .status(400)
