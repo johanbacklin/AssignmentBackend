@@ -69,7 +69,7 @@ function ToDoForm({ userId, pageTitle }) {
     <>
       <div className="todo__header">
         <div className="username-left-header">
-          <h1>Hello</h1>
+          <h1>Todo application</h1>
         </div>
         <div className="username-right-header">
           <button onClick={logoutButtonHandler}>Logout</button>
@@ -79,6 +79,7 @@ function ToDoForm({ userId, pageTitle }) {
       <div className="todo__container">
         <div className="todo__wrapper">
           <form className="from-2" onSubmit={formSubmitHandler}>
+            <h3>Creat Todo</h3>
             <div className="title-form">
               <h1>{pageTitle}</h1>
             </div>

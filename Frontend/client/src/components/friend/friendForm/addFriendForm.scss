@@ -1,1 +1,123 @@
+.add-friend-form {
+  display: flex;
 
+  input {
+    width: 300px;
+    height: 30px;
+    border-radius: 5px;
+    border: none;
+    margin: 10px;
+    background-color: rgba(245, 245, 245, 0.72);
+    border: 2px solid #61dafba5;
+    color: rgb(0, 0, 0);
+    font-size: 16px;
+  }
+
+  button {
+    width: 100px;
+    height: 30px;
+    border-radius: 5px;
+    border: none;
+    margin: 10px;
+    background-color: #61dafb7b;
+    color: black;
+    font-weight: bold;
+
+    &:hover {
+      background-color: #669baa98;
+    }
+  }
+
+  & .error {
+    font-size: 12px;
+    color: rgba(240, 34, 34, 0.406);
+  }
+
+  & .success {
+    font-size: 12px;
+    color: rgba(0, 128, 0, 0.63);
+  }
+}
+// --------- DROP DOWNMENU
+select {
+  width: 300px;
+  height: 30px;
+  border-radius: 5px;
+  border: none;
+  background-color: rgba(245, 245, 245, 0.72);
+  border: 2px solid #61dafba5;
+  color: rgb(0, 0, 0);
+  font-size: 16px;
+}
+
+// --------- FRIEND LIST
+
+.todo-container {
+  display: flex;
+  width: 300px;
+  height: 250px;
+  background-image: url(../../../assets/ToDoRegister.jpg);
+  background-color: #cccccc6e;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+
+  & .todo-image-container {
+    display: flex;
+    flex-direction: column;
+    width: 300px;
+    height: 250px;
+    justify-content: center;
+    align-items: center;
+    background-color: #ffffff00;
+    border: 1px solid #cccccc0e;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.114);
+
+    h3 {
+      background-color: white;
+      opacity: 75%;
+    }
+
+    & .friend-todo {
+      background-color: whitesmoke;
+      font-size: 12px;
+      font-weight: bold;
+      border-radius: 5px;
+      border: none;
+      margin: 5px;
+
+      &:hover {
+        background-color: #669baa98;
+      }
+    }
+  }
+}
+
+.friend-list-container {
+  display: flex;
+  justify-content: center;
+
+  & .friends__list {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+  }
+}
+
+.button-get-friends-todo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
+  border: none;
+  margin: 10px;
+  background-color: #61dafb7b;
+  color: black;
+  font-weight: bold;
+
+  &:hover {
+    background-color: #669baa98;
+  }
+}

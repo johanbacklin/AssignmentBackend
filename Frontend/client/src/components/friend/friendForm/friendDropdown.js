@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import Cookies from "js-cookie";
+import "./addFriendForm.scss";
 
 function FriendDropdown() {
   const [friends, setFriends] = useState([]);

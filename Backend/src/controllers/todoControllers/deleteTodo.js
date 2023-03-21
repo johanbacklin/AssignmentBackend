@@ -2,7 +2,10 @@ const pool = require("../../server");
 
 const jwt = require("jsonwebtoken");
 
-const { validateUser } = require("../authControllers/validation/validation");
+const {
+  validateUser,
+  validateId,
+} = require("../authControllers/validation/validation");
 
 const deleteTodo = (req, res) => {
   const authToken = req.cookies.authToken;
@@ -13,11 +16,13 @@ const deleteTodo = (req, res) => {
 
   const todoId = req.params.id;
 
+  const responseTodoId = validateId({ todoId });
+
   const response = validateUser({ userId });
 
   console.log(response + "response from delete todo");
 
-  if (response.error) {
+  if (response.error || responseTodoId.error) {
     res
       .status(400)
       .send(response.error.details[0].message + " User id is invalid");

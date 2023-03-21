@@ -8,7 +8,7 @@ function verifyToken(req, res, next) {
 
   console.log("token", token);
   if (!token) {
-    return res.status(401).send({ error: "Authorization header missing" });
+    return res.status(403).send({ error: "Authorization header missing" });
   }
   try {
     const decoded = jwt.verify(token, secret);

@@ -10,19 +10,21 @@ function App() {
   const [userId, setUserId] = useState("");
 
   return (
-    <div className="App">
-      <div className="app-container">
-        <BrowserRouter>
-          <Routes>
-            <Route path="/" element={<LoginPage setUserId={setUserId} />} />
-            <Route path="/register" element={<RegisterPage />} />
-            <Route path="/todo" element={<ToDoPage userId={userId} />} />
-            <Route
-              path="/todo/:id"
-              element={<EditTodoPage userId={userId} />}
-            />
-          </Routes>
-        </BrowserRouter>
+    <div className="App-container">
+      <div className="App">
+        <div className="app-container">
+          <BrowserRouter>
+            <Routes>
+              <Route path="/" element={<LoginPage setUserId={setUserId} />} />
+              <Route path="/register" element={<RegisterPage />} />
+              <Route path="/todo" element={<ToDoPage userId={userId} />} />
+              <Route
+                path="/todo/:id"
+                element={<EditTodoPage userId={userId} />}
+              />
+            </Routes>
+          </BrowserRouter>
+        </div>
       </div>
     </div>
   );

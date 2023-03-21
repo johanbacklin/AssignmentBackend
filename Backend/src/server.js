@@ -20,9 +20,6 @@ require("dotenv").config();
 //Mysql
 const mysql = require("mysql2");
 
-/* //MiddleWares
-app.use(express.json()); */
-
 const bodyParser = require("body-parser");
 app.use(bodyParser.json());
 
@@ -53,10 +50,8 @@ app.use("/todo", verifyToken, todoRoutes);
 //friend Routes
 
 const { friendRoutes } = require("./routes/friendRoute/friendRoute");
-/* const {
-  FriendAuthorization,
-} = require("./controllers/authControllers/middleware/FriendAuthorization"); */
-app.use("/friends", friendRoutes);
+
+app.use("/friends", verifyToken, friendRoutes);
 
 app.listen(3001, () => {
   console.log("Listening on port 3001!");

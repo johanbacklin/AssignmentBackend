@@ -3,7 +3,8 @@ import Cookies from "js-cookie";
 import axios from "axios";
 import FriendDropdown from "./friendDropdown";
 import FriendsTodoItem from "../friendsTodo/FriendsToDoItem/friendTodoItem";
-
+import "../../../App.scss";
+import "./addFriendForm.scss";
 function AddFriendForm() {
   const [friendTodoList, setFriendTodoList] = useState([]);
   const [friendId, setFriendId] = useState("");
@@ -65,7 +66,7 @@ function AddFriendForm() {
   }
 
   return (
-    <div>
+    <>
       <form className="add-friend-form" onSubmit={handleFriendSubmit}>
         <input
           type="text"
@@ -78,13 +79,21 @@ function AddFriendForm() {
         <p className="success">{successMessage}</p>
       </form>
       <FriendDropdown />
-      <button onClick={handleGetFriendsTodo}>Get Friends Todo</button>
-      <div className="todo__list">
-        {friendTodoList.map((val, key) => {
-          return <FriendsTodoItem todo={val} key={key} />;
-        })}
+
+      <button
+        className="button-get-friends-todo"
+        onClick={handleGetFriendsTodo}
+      >
+        Get Friends Todo
+      </button>
+      <div className="friend-list-container">
+        <div className="friends__list">
+          {friendTodoList.map((val, key) => {
+            return <FriendsTodoItem todo={val} key={key} />;
+          })}
+        </div>
       </div>
-    </div>
+    </>
   );
 }
 

@@ -60,9 +60,23 @@ function validateAddFriend({ friendId }) {
   return results;
 }
 
+// Schema for id
+
+const schemaId = joi.object({
+  todoId: joi.number().required(),
+});
+
+function validateId({ todoId }) {
+  const result = schemaId.validate({
+    todoId,
+  });
+  return result;
+}
+
 module.exports = {
   validateAuth,
   validateTodo,
   validateUser,
   validateAddFriend,
+  validateId,
 };
